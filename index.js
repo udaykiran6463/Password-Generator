@@ -24,7 +24,7 @@ const allCheckBox = document.querySelectorAll("input[type = checkbox]");
 
 
 let password = "";
-let passwordLength = 10;
+let passwordLength = 9;
 let checkCount = 1;
 // set strength circle color to gray
 
