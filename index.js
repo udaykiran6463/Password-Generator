@@ -27,8 +27,8 @@ let password = "";
 let passwordLength = 10;
 let checkCount = 1;
 // set strength circle color to gray
-
-function HandleSlider(){
+handleSlider();
+function handleSlider(){
     lengthDisplay.textContent = passwordLength;
     inputSlider.value = passwordLength;
 };
@@ -100,28 +100,16 @@ async function copyContent(){
     catch(err){
         copyMsg.innerText = 'failed'
     }
+
+    copyMsg.classList.add("active");
+    setTimeout(() => {
+        copyMsg.classList.remove("active");
+    }, 2000);
 }
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-// setting password lenght value accordind to the slider
-inputSlider.addEventListener("input", ()=>{
-    passwordLength = inputSlider.value;
-    lengthDisplay.textContent = passwordLength;
-});
 
 
 
