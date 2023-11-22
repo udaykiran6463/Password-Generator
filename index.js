@@ -218,20 +218,3 @@ genarateBtn.addEventListener("click",()=>{
 
     console.log(password);
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
