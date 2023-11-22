@@ -98,7 +98,7 @@ async function copyContent(){
         copyMsg.innerText = "Copied";
     }
     catch(err){
-        console.log(err);
+        copyMsg.innerText = 'failed'
     }
 }
 
