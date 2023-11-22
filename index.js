@@ -24,10 +24,13 @@ const allCheckBox = document.querySelectorAll("input[type = checkbox]");
 
 
 let password = "";
-let passwordLength = 10;
+let passwordLength = 4;
 let checkCount = 1;
 // set strength circle color to gray
 handleSlider();
+
+uppercaseCheck.checked = true;
+
 function handleSlider(){
     lengthDisplay.textContent = passwordLength;
     inputSlider.value = passwordLength;
@@ -38,8 +41,8 @@ function SetIndicator(color){
     indicator.style.boxshadow =`0 0 2px ${color}`;
 };
 
-function getRandInteger(min,max){
-    Math.round(Math.Random()*(max-min)) + min;
+function getRandInteger(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 function generateRandomNumber(){
@@ -60,7 +63,7 @@ function generateRandomSymbol(){
 }
 
 
-function calcStrenght(){
+function calcStrength(){
     let hasUpper = false;
     let hasLower = false;
     let hasNumber = false;
@@ -90,6 +93,16 @@ function calcStrenght(){
     }
 }
 
+function shufflePassword(){
+    // fisher yates method
+    // shuffle the password
+    password = password.split("");
+    for(let i = password.length - 1; i > 0; i--){
+        const j = Math.floor(Math.random() * (i + 1));
+        [password[i], password[j]] = [password[j], password[i]];
+    }
+    return password.join("");
+}
 
 
 async function copyContent(){
@@ -106,6 +119,107 @@ async function copyContent(){
         copyMsg.classList.remove("active");
     }, 2000);
 }
+
+inputSlider.addEventListener("input",(e)=>{
+    // passwordLength = inputSlider.value;
+    passwordLength = e.target.value;
+    handleSlider();
+})
+
+
+copyBtn.addEventListener("click",copyContent);
+
+function handleCheckBoxChange(){
+    checkCount = 0;
+    allCheckBox.forEach((checkbox) => {
+        if(checkbox.checked){
+            checkCount++;
+        }
+    });
+
+    if(passwordLength < checkCount){
+        passwordLength = checkCount;
+        handleSlider();
+    }
+
+}
+allCheckBox.forEach((checkbox) => {
+    checkbox.addEventListener("change",handleCheckBoxChange);
+})
+
+genarateBtn.addEventListener("click",()=>{
+    // no checkbox checked
+    if(checkCount <= 0){
+        return;
+    }
+
+    if(passwordLength < checkCount){
+        passwordLength = checkCount;
+        handleSlider();
+    }
+
+    // let create a new password 
+
+    // reomve old password
+    password = "";
+
+    // let put the checkbox checked 
+    // if(uppercaseCheck.checked){
+    //     password += generateRandomUppercase();
+    // }
+
+    // if(lowercaseCheck.checked){
+    //     password += generateRandomLowercase();
+    // }
+
+    // if(numberCheck.checked){
+    //     password += generateRandomNumber();
+    // }
+
+    // if(symbolsCheck.checked){
+    //     password += generateRandomSymbol();
+    // } 
+    
+    
+    let funcArr = [];
+
+    if(uppercaseCheck.checked){
+        funcArr.push(generateRandomUppercase);
+    }
+
+    if(lowercaseCheck.checked){
+        funcArr.push(generateRandomLowercase);
+    }   
+
+    if(numberCheck.checked){
+        funcArr.push(generateRandomNumber);
+    }   
+
+    if(symbolsCheck.checked){
+        funcArr.push(generateRandomSymbol);
+    }
+
+    // complersory addition
+    for(let i=0; i<funcArr.length; i++){
+        password += funcArr[i]();
+    }
+
+    // remaining addition
+    for(let i=0; i<passwordLength - checkCount; i++){
+        password += funcArr[getRandInteger(0,funcArr.length-1)]();
+    }
+
+
+    // shuffle the password
+    password = shufflePassword();
+
+    passwordDisplay.value = password;  
+    calcStrength();
+
+    console.log(password);
+});
+
+
 
 
 
