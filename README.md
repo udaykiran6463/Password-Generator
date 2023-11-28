@@ -3,6 +3,9 @@
 ## Overview
 The Secure Password Generator Tool is a user-friendly interface designed to assist users in creating strong and secure passwords. It offers a simple yet effective way to generate passwords of varying lengths while incorporating different character types to enhance security.
 
+##Access Online Version
+Access the online version of the tool [here](https://udaykiran6463.github.io/Password-Generator/).
+
 ## Features
 - **Password Length Slider**: Allows users to adjust the desired length of the password.
 - **Character Type Options**: Enables inclusion/exclusion of uppercase letters, lowercase letters, numbers, and symbols in the generated password.
