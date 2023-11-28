@@ -27,6 +27,7 @@ let password = "";
 let passwordLength = 4;
 let checkCount = 1;
 // set strength circle color to gray
+SetIndicator("gray");
 handleSlider();
 
 uppercaseCheck.checked = true;
@@ -34,12 +35,19 @@ uppercaseCheck.checked = true;
 function handleSlider(){
     lengthDisplay.textContent = passwordLength;
     inputSlider.value = passwordLength;
+
+    const min = inputSlider.min;
+    const max = inputSlider.max;
+    let backgroundWidth = ((passwordLength - min) * 100) / (max - min) + '% 100%';
+    inputSlider.style.backgroundSize = backgroundWidth;
 };
 
-function SetIndicator(color){
+function SetIndicator(color) {
     indicator.style.backgroundColor = color;
-    indicator.style.boxshadow =`0 0 2px ${color}`;
-};
+    // box shadow
+    indicator.style.boxShadow = `0 0 12px 1px ${color}`;
+}
+
 
 function getRandInteger(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
