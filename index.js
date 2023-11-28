@@ -59,7 +59,7 @@ function generateRandomUppercase(){
 
 function generateRandomSymbol(){
     const symbols = "!@#$%^&*(){}[]=<>/,.";
-    return symbols.charAt[getRandInteger(0,symbols.length-1)];
+    return symbols[getRandInteger(0,symbols.length-1)];
 }
 
 
@@ -99,7 +99,9 @@ function shufflePassword(){
     password = password.split("");
     for(let i = password.length - 1; i > 0; i--){
         const j = Math.floor(Math.random() * (i + 1));
-        [password[i], password[j]] = [password[j], password[i]];
+        let temp = password[i];
+        password[i] = password[j];
+        password[j] = temp;
     }
     return password.join("");
 }
@@ -200,14 +202,17 @@ genarateBtn.addEventListener("click",()=>{
     }
 
     // complersory addition
+    console.log(funcArr.length);
     for(let i=0; i<funcArr.length; i++){
         password += funcArr[i]();
     }
-
+    console.log(password);
     // remaining addition
+    console.log(passwordLength - checkCount);
     for(let i=0; i<passwordLength - checkCount; i++){
         password += funcArr[getRandInteger(0,funcArr.length-1)]();
     }
+    console.log(password);
 
 
     // shuffle the password
